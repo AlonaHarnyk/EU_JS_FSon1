@@ -1,192 +1,138 @@
-// BIND
-// const inventory = {
-//   items: ['Knife', 'Gas mask'],
-//   add(itemName) {
-//     console.log(`Adding ${itemName} to inventory`);
-
-//     this.items.push(itemName);
-//   },
-//   remove(itemName) {
-//     console.log(`Removing ${itemName} from inventory`);
-
-//     this.items = this.items.filter(item => item !== itemName);
-//   },
-// };
-
-// const invokeInventoryAction = function (itemName, action) {
-//     // console.log(this)
-
-//   console.log(`Invoking action on ${itemName}`);
-//   action(itemName);
-// };
-
-// invokeInventoryAction('Medkit', inventory.add.bind(inventory));
-// // Invoking action on Medkit
-// // Adding Medkit to inventory
-
-// // console.log(inventory.items); // ['Knife', 'Gas mask', 'Medkit']
-
-// invokeInventoryAction('Gas mask', inventory.remove.bind(inventory));
-// // // Invoking action on Gas mask
-// // // Removing Gas mask from inventory
-
-// // // console.log(inventory.items); // ['Knife', 'Medkit']
-
-// // CALL
-// const inventory = {
-//   items: ['Knife', 'Gas mask'],
-//   add(itemName) {
-//     console.log(`Adding ${itemName} to inventory`);
-
-//     this.items.push(itemName);
-//   },
-//   remove(itemName) {
-//     console.log(`Removing ${itemName} from inventory`);
-
-//     this.items = this.items.filter(item => item !== itemName);
-//   },
-// };
-
-// const invokeInventoryAction = function (itemName, action) {
-//   console.log(this)
-
-//   console.log(`Invoking action on ${itemName}`);
-//   action.call(this, itemName);
-// };
-
-// invokeInventoryAction.call(inventory, 'Medkit', inventory.add);
-// // Invoking action on Medkit
-// // Adding Medkit to inventory
-
-// // console.log(inventory.items); // ['Knife', 'Gas mask', 'Medkit']
-
-// invokeInventoryAction.call(inventory,'Gas mask', inventory.remove);
-// // // // Invoking action on Gas mask
-// // // // Removing Gas mask from inventory
-
-// // // // console.log(inventory.items); // ['Knife', 'Medkit']
-
-
-// APPLY
-// const inventory = {
-//   items: ['Knife', 'Gas mask'],
-//   add(itemName) {
-//     console.log(`Adding ${itemName} to inventory`);
-
-//     this.items.push(itemName);
-//   },
-//   remove(itemName) {
-//     console.log(`Removing ${itemName} from inventory`);
-
-//     this.items = this.items.filter(item => item !== itemName);
-//   },
-// };
-
-// const invokeInventoryAction = function (itemName, action) {
-//   console.log(this)
-
-//   console.log(`Invoking action on ${itemName}`);
-//   action.apply(this, [itemName]);
-// };
-
-// invokeInventoryAction.apply(inventory, ['Medkit', inventory.add]);
-// // Invoking action on Medkit
-// // Adding Medkit to inventory
-
-// // console.log(inventory.items); // ['Knife', 'Gas mask', 'Medkit']
-
-// invokeInventoryAction.apply(inventory,['Gas mask', inventory.remove]);
-// // // // Invoking action on Gas mask
-// // // // Removing Gas mask from inventory
-
-// // // // console.log(inventory.items); // ['Knife', 'Medkit']
-
-
 // const books = [
 //   {
-//     title: "The Last Kingdom",
-//     author: "Bernard Cornwell",
-//     rating: 8.38,
+//     id: "1",
+//     title: `Apple. Эволюция компьютера`,
+//     author: `Владимир Невзоров`,
+//     img: `https://bukva.ua/img/products/449/449532_200.jpg`,
+//     plot: `Богато иллюстрированный хронологический справочник по истории компьютеров, в котором увлекательно
+//     и в структурированном виде изложена информация о создании и развитии техники Apple на фоне истории
+//     персональных компьютеров в целом.
+//     В книге даны описания десятков наиболее значимых моделей устройств как Apple, так и других производителей,
+//     сопровождающиеся большим количеством оригинальных студийных фотографий.
+//     Книга предназначена для широкого круга читателей, интересующихся историей электроники.
+//     Она также может послужить источником вдохновения для дизайнеров, маркетологов и предпринимателей.`,
 //   },
 //   {
-//     title: "На берегу спокойных вод",
-//     author: "Роберт Шекли",
-//     rating: 8.51,
+//     id: "2",
+//     title: `Как объяснить ребенку информатику`,
+//     author: `Кэрол Вордерман`,
+//     img: `https://bukva.ua/img/products/480/480030_200.jpg`,
+//     plot: `Иллюстрированная энциклопедия в формате инфографики о технических, социальных и культурных аспектах
+//     в информатике. Пошагово объясняет, как детям максимально эффективно использовать компьютеры и интернет-сервисы,
+//     оставаясь в безопасности.
+//     Книга рассказывает обо всем: от хранения данных до жизни в интернет-пространстве,
+//     от программирования до компьютерных атак. О том, как компьютеры функционируют, о современном программном
+//     обеспечении, устройстве Интернета и цифровом этикете. Все концепты - от хакера до биткоина -
+//     объясняются наглядно с помощью иллюстраций и схем.`,
 //   },
 //   {
-//     title: "Сон смешного человека",
-//     author: "Федор Достоевский",
-//     rating: 7.75,
+//     id: "3",
+//     title: `Путь скрам-мастера. #ScrumMasterWay`,
+//     author: `Зузана Шохова`,
+//     img: `https://bukva.ua/img/products/480/480090_200.jpg`,
+//     plot: `Эта книга поможет вам стать выдающимся скрам-мастером и добиться отличных результатов с вашей командой.
+//     Она иллюстрированная и легкая для восприятия - вы сможете прочитать ее за выходные, а пользоваться полученными
+//     знаниями будете в течение всей карьеры.
+//     Основываясь на 15-летнем опыте, Зузана Шохова рассказывает, какие роли и обязанности есть у скрам-мастера,
+//     как ему решать повседневные задачи, какие компетенции нужны, чтобы стать выдающимся скрам-мастером,
+//     какими инструментами ему нужно пользоваться.`,
 //   },
 // ];
 
-// const book =   {
-//     title: "The Last Kingdom",
-//     author: "Bernard Cornwell",
-//     rating: 8.38,
-// }
-// const key = 'title'
-// console.log(book.title)
-// console.log(book['title'])
-// console.log(book[key])
+// const div1 = document.querySelector('div')
+// console.log(div1)
 
-// const a = {}
+// const div2 = document.querySelector('.root')
+// console.log(div2)
 
-// const key = 'key3'
+// const div3 = document.querySelector('#root')
+// console.log(div3)
 
-// a.key1 = 1
-// a['key2'] = 2
-// a[key] = 3
+// const divs = document.querySelectorAll('div')
+// console.log(divs)
 
-// console.log(a)
+// console.log(document.querySelectorAll('li'))
+// const list1 = document.querySelector('.list1')
+// console.log(list1.querySelectorAll('li'))
 
-// const book = books[0];
-// const keys = Object.keys(book);
-// console.log(keys);
-// const data = {};
+// console.log(list1.parentNode)
 
-// for (const key of keys) {
-//   // console.log('key', key)
-//   data[key] = [];
-// }
+// console.log(list1.children)
 
-// for (const key in data) {
-//   // console.log(data[key])
-//     for (const book of books) {
-//         console.log(data[key])
-//         console.log(book[key])
-//     data[key].push(book[key]);
-//   }
-// }
+// const address = document.querySelector('address')
+// console.log(address.firstElementChild)
 
-// console.log(data);
+// console.log(list1.nextSibling)
 
-// const add = (a, b) => {
-//     console.log(  a + b)
-// }
+// const input = document.querySelector('input')
 
-// const multiply = (a, b) => {
-//     console.log(a * b)
-// }
-    
-// const subtract = (a, b) => {
-//     console.log(  a - b)
-// }
+// console.log(input)
 
-// const divide = (a, b) => {
-//     console.log(a / b)
-// }
+// input.value = '12345'
+// console.log(input.name)
 
+// const paragraph = document.querySelector('.text')
+// console.log(paragraph.textContent)
+// paragraph.textContent = 'Hello!'
+// paragraph.classList.add('color')
+// // paragraph.classList.remove('color')
+// console.log(paragraph.classList.contains('color'))
 
-// function operations(num1, num2, callback1, callback2) {
+// paragraph.style.fontSize = "36px";
+// paragraph.style.backgroundColor = "yellow";
 
-//     if (num1 > num2) {
-//         callback1(num1, num2)
-//     } else {
-//         callback2(num1, num2)
-//     }
-// }
+// const image = document.querySelector("img");
+// image.alt = "Amazing nature"
 
-// operations(1, 5, subtract, divide)
+// console.log(image.attributes)
 
+// image.setAttribute("alt", "Amazing nature");
 
+// const saveBtn = document.querySelector('[data-action="save"]');
+// const closeBtn = document.querySelector('[data-action="close"]');
+
+// console.log(saveBtn.dataset.action); //save
+// console.log(closeBtn.dataset.action); //close
+
+// const start = document.getElementById('start')
+// console.log(start)
+// const p = document.createElement('p')
+// console.log(p)
+// p.textContent = 'I am div!'
+// p.classList.add('color')
+// start.append(p)
+// // p.remove()
+
+// const inner = document.querySelector('.inner')
+// // console.log(inner)
+// // inner.innerHTML = 'qwerty'
+// // inner.innerHTML = 'qwerty!!!'
+// // console.log(inner.innerHTML)
+// // inner.innerHTML = ''
+
+// const markup = '<span>Test!</span>'
+
+// inner.insertAdjacentHTML('beforeend', markup)
+
+const array = [
+  {
+    a: "1",
+    b: "2",
+  },
+  {
+    a: "3",
+    b: "4",
+  },
+  {
+    a: "5",
+    b: "6",
+  },
+];
+
+const ul = document.querySelector('.example')
+
+const superMarkup = array.map(({ a, b }) => `<li><span>${a}</span><span>${b}</span></li>`).join('')
+
+console.log(superMarkup)
+
+ul.insertAdjacentHTML('afterbegin', superMarkup)
