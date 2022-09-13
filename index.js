@@ -114,25 +114,133 @@
 
 // inner.insertAdjacentHTML('beforeend', markup)
 
-const array = [
-  {
-    a: "1",
-    b: "2",
-  },
-  {
-    a: "3",
-    b: "4",
-  },
-  {
-    a: "5",
-    b: "6",
-  },
-];
+// const array = [
+//   {
+//     a: "1",
+//     b: "2",
+//   },
+//   {
+//     a: "3",
+//     b: "4",
+//   },
+//   {
+//     a: "5",
+//     b: "6",
+//   },
+// ];
 
-const ul = document.querySelector('.example')
+// const ul = document.querySelector('.example')
 
-const superMarkup = array.map(({ a, b }) => `<li><span>${a}</span><span>${b}</span></li>`).join('')
+// const superMarkup = array.map(({ a, b }) => `<li><span>${a}</span><span>${b}</span></li>`).join('')
 
-console.log(superMarkup)
+// console.log(superMarkup)
 
-ul.insertAdjacentHTML('afterbegin', superMarkup)
+// ul.insertAdjacentHTML('afterbegin', superMarkup)
+
+// const button = document.querySelector('.btn')
+
+// button.addEventListener('click', clickHandler)
+
+// function clickHandler(event) {
+//   // console.log(this)
+//   // console.log('I am clicked!')
+//   console.log(event)
+//   console.log(event.target)
+// }
+
+// const mango = {
+//   username: "Mango",
+//   showUsername() {
+//     console.log(this);
+//     console.log(`My username is: ${this.username}`);
+//   },
+// };
+
+// const btn = document.querySelector(".btn");
+
+// // ✅ Работает
+// mango.showUsername();
+
+// // ❌ this будет ссылаться на button если использовать showUsername как callback
+// btn.addEventListener("click", mango.showUsername); // не работает
+
+// // ✅ Не забывайте привязывать контекст методов объекта
+// btn.addEventListener("click", mango.showUsername.bind(mango));
+
+// window.addEventListener("keydown", event => {
+//   console.log(event)
+//   console.log("key: ", event.key);
+//   console.log("code: ", event.code);
+//   if (event.key === 'q') {
+//     console.log('Hello!')
+//   }
+// });
+
+// const textInput = document.querySelector(".input");
+
+// // textInput.addEventListener("input", (event) => {
+// //   console.log(event.target.value)
+// // });
+
+// // textInput.addEventListener("focus", () => {
+// //   textInput.value = "This input has focus";
+// // });
+
+// textInput.addEventListener("blur", () => {
+//   console.log('blur')
+// }); 
+
+// // textInput.addEventListener("change", () => {
+// //   console.log('change')
+// // });
+
+
+// const form = document.querySelector(".form");
+
+// form.addEventListener("submit", handleSubmit);
+
+// function handleSubmit(event) {
+//   event.preventDefault();
+
+//   console.log(event.target.elements)
+//   const {
+//     elements: { login, password }
+//   } = event.target;
+
+//   if (login.value === "" || password.value === "") {
+//     return console.log("Please fill in all the fields!");
+//   }
+
+//   console.log(`Login: ${login.value}, Password: ${password.value}`);
+//   event.target.reset();
+// }
+
+// const form = document.querySelector(".login-form");
+
+// form.addEventListener("submit", handleSubmit);
+
+// function handleSubmit(event) {
+//   event.preventDefault();
+
+//   console.log(event.target.elements)
+//   const {
+//     elements: { email, password }
+//   } = event.target;
+
+
+//   console.log(email.value)
+
+//   console.log(password.value)
+
+//   console.log(
+//     {
+      
+//     }
+//   )
+//   // if (login.value === "" || password.value === "") {
+//   //   return console.log("Please fill in all the fields!");
+//   // }
+
+//   // console.log(`Login: ${login.value}, Password: ${password.value}`);
+//   // event.target.reset();
+// }
