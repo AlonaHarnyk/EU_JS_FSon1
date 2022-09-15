@@ -188,12 +188,11 @@
 
 // textInput.addEventListener("blur", () => {
 //   console.log('blur')
-// }); 
+// });
 
 // // textInput.addEventListener("change", () => {
 // //   console.log('change')
 // // });
-
 
 // const form = document.querySelector(".form");
 
@@ -227,14 +226,13 @@
 //     elements: { email, password }
 //   } = event.target;
 
-
 //   console.log(email.value)
 
 //   console.log(password.value)
 
 //   console.log(
 //     {
-      
+
 //     }
 //   )
 //   // if (login.value === "" || password.value === "") {
@@ -244,3 +242,61 @@
 //   // console.log(`Login: ${login.value}, Password: ${password.value}`);
 //   // event.target.reset();
 // }
+
+// const input = document.querySelector('.lodash')
+
+// // input.addEventListener('input', _.throttle(inputHandler, 500))
+
+// // function inputHandler(event) {
+// // console.log(event.target.value)
+// // }
+
+// input.addEventListener('input', _.debounce(inputHandler, 2000,     {
+//       leading: true,
+//       trailing: true,
+//     }))
+
+// function inputHandler(event) {
+// console.log(event.target.value)
+// }
+
+function getRandomHexColor() {
+  return `#${Math.floor(Math.random() * 16777215)
+    .toString(16)
+    .padStart(6, 0)}`;
+}
+
+const inputAmount = document.querySelector("input");
+const boxWrapper = document.querySelector("#boxes");
+const createBtn = document.querySelector("[data-create]");
+const destroyBtn = document.querySelector("[data-destroy]");
+
+destroyBtn.addEventListener("click", () => {
+  boxWrapper.innerHTML = "";
+  inputAmount.value = "";
+});
+
+createBtn.addEventListener("click", () => {
+  createBoxes(Number(inputAmount.value));
+});
+
+function createBoxes(amount) {
+  const box = "<div></div>";
+  const boxes = Array(amount).fill(box).join("");
+  boxWrapper.insertAdjacentHTML("afterbegin", boxes);
+  const divs = [...boxWrapper.children];
+  let size = 30;
+  const step = 10;
+  divs.map((div) => {
+    div.style.backgroundColor = getRandomHexColor();
+    div.style.width = size + "px";
+    div.style.height = size + "px";
+    size += step;
+  });
+}
+
+
+const array = [1, 2, 3, 5, 6]
+array.fill(0, 0, 2)
+
+console.log(array)
