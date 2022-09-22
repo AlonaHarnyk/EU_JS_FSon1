@@ -1,0 +1,14 @@
+#root {
+    display: flex;
+    height: 100vh;
+}
+
+.left {
+    width: 40%;
+    background-color: antiquewhite;
+}
+
+.right {
+    width: 60%;
+    background-color: aliceblue;
+}
