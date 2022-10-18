@@ -1,81 +1,122 @@
-const form = document.querySelector("form");
+const fetchBtn = document.querySelector(".fetch");
 const list = document.querySelector(".list");
-const button = document.querySelector(".more");
+const addBtn = document.querySelector(".add");
+const formWrapper = document.querySelector(".form-wrapper");
 
-const BASE_URL = "https://app.ticketmaster.com/discovery/v2/events.json";
-const API = "9cTjAjlRB53wyhAFk5VzXcBu5GiPU6fK";
+addBtn.style.display = "none";
 
-let pageToFetch = 0;
-let keyword = "";
+const BASE_URL = "http://localhost:8080";
 
-function fetchEvent(page, keyword) {
-  const params = new URLSearchParams({
-    apikey: API,
-    page,
-    keyword,
-    size: 50,
-  });
+fetchBtn.addEventListener("click", getUsers);
 
-  return fetch(`${BASE_URL}?${params}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-      return response.json();
+function getUsers() {
+  fetch(`${BASE_URL}/users`)
+    .then((response) => response.json())
+    .then((users) => {
+      const markup = users
+        .map(
+          ({ name, email, id }) => `
+    <li id=${id}>
+    <p>User name: <span class='name'>${name}</span></p>
+    <p>User email: <span class='email'>${email}</span></p>
+    <button class='delete'>Delete</button>
+    <button class='edit'>Edit</button>
+    </li>
+    `
+        )
+        .join("");
+      list.innerHTML = "";
+      list.insertAdjacentHTML("afterbegin", markup);
+      fetchBtn.style.display = "none";
+      addBtn.style.display = "inline";
+
+      const delBtns = document.querySelectorAll(".delete");
+      delBtns.forEach((btn) => btn.addEventListener("click", deleteUser));
+
+      const editBtns = document.querySelectorAll(".edit");
+      editBtns.forEach((btn) => btn.addEventListener("click", editUser));
     })
     .catch((error) => console.log(error));
 }
 
-function getEvents(page, keyword) {
-  fetchEvent(page, keyword).then((data) => {
-    console.log(data.page.totalElements);
+addBtn.addEventListener("click", addUser);
 
-    if (data.page.totalElements === 0) {
-      button.classList.add("invisible");
-      alert(`There are no events by keyword ${keyword}`);
-    }
-
-    const events = data?._embedded?.events;
-    if (events) {
-      renderEvents(events);
-    }
-
-    if (pageToFetch === data.page.totalPages - 1) {
-      button.classList.add("invisible");
-      alert("Finish");
-      return;
-    }
-    pageToFetch += 1;
-    if (data.page.totalPages > 1) {
-      button.classList.remove("invisible");
-    }
+function addUser() {
+  formWrapper.innerHTML = createFormMarkup();
+  const form = document.querySelector("form");
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const user = {
+      name: event.target.elements.name.value,
+      email: event.target.elements.email.value,
+    };
+    const options = {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    };
+    fetch(`${BASE_URL}/users`, options)
+      .then(() => {
+        getUsers();
+        formWrapper.innerHTML = "";
+      })
+      .catch((error) => console.log(error));
   });
 }
 
-function renderEvents(events) {
-  const markup = events
-    .map(({ name, images }) => {
-      return `<li>
-    <img src='${images[0].url}' alt='${name}' width='200'>
-    <p>${name}</p>
-    </li>`;
-    })
-    .join("");
-  list.insertAdjacentHTML("beforeend", markup);
+function createFormMarkup(name = "", email = "") {
+  return `<form>
+  <label>
+  Name:
+  <input type='text' name='name' value='${name}'/>
+  </label>
+  <label>
+  Email:
+  <input type='email' name='email' value='${email}'/>
+  </label>
+  <button>Save</button>
+  </form>`;
 }
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const query = event.target.elements.query.value;
-  keyword = query;
-  pageToFetch = 0;
-  list.innerHTML = "";
-  if (!query) {
-    return;
-  }
-  getEvents(pageToFetch, query);
-});
+function deleteUser(event) {
+  const id = event.target.parentNode.id;
+  const options = {
+    method: "DELETE",
+    headers: {
+      authorization: "admin",
+    },
+  };
+  fetch(`${BASE_URL}/users/${id}`, options)
+    .then(() => getUsers())
+    .catch((error) => console.log(error));
+}
 
-button.addEventListener("click", () => {
-  getEvents(pageToFetch, keyword);
-});
+function editUser(event) {
+  const id = event.target.parentNode.id;
+  const name = event.target.parentNode.querySelector(".name").textContent;
+  const email = event.target.parentNode.querySelector(".email").textContent;
+  formWrapper.innerHTML = createFormMarkup(name, email);
+  const form = document.querySelector("form");
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const user = {
+      name: event.target.elements.name.value,
+      email: event.target.elements.email.value,
+    };
+    const options = {
+      method: "PUT",
+      body: JSON.stringify(user),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    };
+    fetch(`${BASE_URL}/users/${id}`, options)
+      .then(() => {
+        getUsers();
+        formWrapper.innerHTML = "";
+      })
+      .catch((error) => console.log(error));
+  });
+}
